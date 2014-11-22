@@ -1,0 +1,85 @@
+\documentclass{beamer}
+
+% \usepackage{beamerthemesplit} // Activate for custom appearance
+
+\title{Dinur's Proof of the PCP Theorem}
+\author{Tiernan Garsys, Lucas Pe\~{n}a, and Noam Zilberstein}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\section{Problem Statement}
+\subsection{The PCP Theorem}
+\subsection{}
+\section{Main Result}
+\subsection{Previous Approaches}
+\subsection{Dinur's Approach}
+\section{Technical Overview of the Proof}
+\subsection{Definitions}
+\subsection{The PCP Theorem}
+\section{Proof of Lemmas}
+\frame
+{
+  \frametitle{The PCP Theorem}
+
+  \begin{itemize}
+  \item<1-> The class NP is equivalent to the set of languages of problems that can be decided by a probabilistically checkable proof using $O(\log n)$ random bits and $O(1)$ query bits.
+  \item<2-> Let PCP$_{\epsilon}[r, q, a]$ be the class of languages with a PCP using $r$ random bits and $q$ queries that each return $a$-bit responses.  If $x\in L$, then the verifier will always accept, if $x\not\in L$ then the verifier will accept with probability at most $\epsilon$.   
+  \item<3-> Dinur presents a new proof that NP = PCP$_\frac12[c\log n, q, 1]$ where $c$ and $q$ are constants. 
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Constraint Graph Definition}
+  \begin{itemize}
+  \item<1->Let $G=\langle\langle V, E\rangle, \Sigma, \mathcal{C}\rangle$ be a constraint graph (CG) where:
+  \begin{itemize}
+    \item<2->$\langle V, E\rangle$ is a directed graph
+    \item<3-> $\Sigma$ is a constant size set of colors
+    \item<4-> $\mathcal C =\{c_e : \Sigma^2\mapsto \{0,1\}\mid e\in E\}$ is a set of constraints 
+  \end{itemize}
+  \item<5-> $G$ is a YES instance of CG iff:
+  \begin{itemize}
+    \item<6-> $\exists \sigma: V\mapsto \Sigma$ such that $\forall (u,v)\in E,\; c_{(u,v)}(\sigma(u),\sigma(v)) = 1$
+  \end{itemize}
+  \item<7-> \textbf{Example:} 3-Coloring:
+  \begin{itemize}
+    \item<8-> $\Sigma = \{$RED, GREEN, BLUE$\}$
+    \item<9-> $\forall (u,v)\in E,$
+    $$c_{(u,v)}(\sigma(u), \sigma(v)) = \begin{cases}
+      1, & \sigma(u) \neq \sigma(v) \\
+      0, & \text{otherwise}
+      \end{cases}$$
+  \end{itemize}
+  \end{itemize}
+}
+\frame{
+  \frametitle{Hardness of Constraint Graphs}
+  \begin{itemize}
+    \item<1-> Determining if a constraint graph is satisfiable is NP-complete
+    \begin{itemize}
+      \item<2-> Reduction from $k$-Coloring
+      \item<3-> CG $\subseteq$ NP. Coloring is the proof, verification complexity is linear in number of edges
+    \end{itemize}
+  \end{itemize}
+}  
+
+\frame{
+\frametitle{Technical Overview}
+\begin{itemize}
+\item<1->Show that the following are equivalent:
+\begin{itemize}
+\item<2-> Property 1: NP $\subseteq$ PCP$_{1-\epsilon}[O(\log n), 2, 4]$
+\item<3-> Property 2: For any language $L\in$ NP there is a polynomial time transformation $T$ from instances of $L$ to a constraint graphs on 16 colors $\mathcal G_{16}$ such that if $x\in L$ then $\mathcal G_{16}$ is satisfiable and if $x\notin L$ then at most $(1-\epsilon)|E|$ of the constraints are simultaneously satisfiable
+\end{itemize}
+\item<4->It will suffice to prove Property 2
+\item<5->Boost the accuracy of the solution to show that NP$\subseteq$ PCP$_{(1-\epsilon)^c}[O(\log n), 8c, 1]$
+\end{itemize}
+}
+
+\end{document}

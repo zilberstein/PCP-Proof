@@ -82,4 +82,100 @@
 \end{itemize}
 }
 
+\frame{
+\frametitle{Regarding Expanders}
+\begin{itemize}
+\item<1-> Edge expansion property for a graph $G =\langle V, E\rangle$: $\varphi(G) =\min_{|S|\le\frac n2}\left\{\frac{E(S,\bar s)}{|S|}\right\}$ such that $S\subseteq V$.
+\end{itemize}
+}
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
+\begin{block}{Lemma: Gap Amplification}
+There exists a constant $0<\alpha<1$, an alphabet $\Sigma$, and a polynomial time reduction mapping the CG $G=\langle\langle V, E\rangle, \Sigma, \mathcal{C}\rangle$ to $G=\langle\langle V', E'\rangle, \Sigma', \mathcal{C}'\rangle$ such that:
+\begin{itemize}
+\item<2->$|G'|$ is $\Theta(|G|)$
+\item<3->$\Sigma' = \Sigma$
+\item<4->If UNSAT$(G) = 0$ then UNSAT$(G') = 0$
+\item<5->UNSAT$(G') \ge 2\min\{$UNSAT$(G), \alpha\}$
+\end{itemize}
+\end{block}
+
+\begin{block}<6->{Step 1: Preprocessing}
+Convert $G$ to a constant degree expander. Worsens UNSAT$(G)$ by a constant factor, blows up $|G|$ by a constant factor
+\end{block}
+
+\begin{block}<7->{Step 2: Power Step}
+Assuming that the degree of $G$ is constant, we amplify UNSAT$(G)$ while blowing up $|G|$ and $|\Sigma|$ by a constant factor.
+\end{block}
+}
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
+\begin{block}<1->{Step 1A}
+Convert $G$ in to a constant degree graph
+\begin{itemize}
+\item<2->Let $G_n$ be a family of expander graphs of degree $d$ and edge expansion at least $\varphi_0$
+\item<3->$G$ is transformed as follows:
+  \begin{itemize}
+    \item<4->Each vertex $v\in V$ (with degree $d_v$) is replaced with expander graph $G_{d_v}$ and each edge incident on $v$ is assigned to a vertex in $G_{d_v}$.
+    \item<5->All edges in $G_{d_v}$ have equality constraints. All other edges retain original constraints
+    \item<6->Now, we have that $|V'| = \sum_{v\in V}d_v = 2|E|$ and $|E'|=frac{(d+1)|V'|}{2}=(d+1)|E|$, so $|G'|$ is $\Theta(|G|)$.
+    \item<7->If UNSAT$(G)=0$, then $UNSAT(G')=0$ by assigning each vertex in $G_{d_v}$ to the color of $v$
+    \item<8->Now, we need to show that if UNSAT$(G)\neq 0$, then UNSAT$(G')$ is not much smaller
+  \end{itemize}
+\end{itemize}
+\end{block}
+}
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
+\begin{block}<1->{Step 1A}
+If UNSAT$(G)\neq 0$, then UNSAT$(G')$ is not much smaller
+\begin{itemize}
+\item<2->Let $\sigma': V'\mapsto \Sigma$ be the best coloring for $G'$
+\item<3->We now obtain $\sigma : V\mapsto \Sigma$ where $\sigma(v)$ is the most popular color in $\{\sigma'(u)\mid u\in G_{d_v}\}$
+\item<4->Let $\mu = $UNSAT$(G)$
+\item<5->$B$ is the set of edges violated by $\sigma$ and $B'$ is the set of edges violated by $\sigma'$
+\item<6->$S=\{v\in V'\mid \sigma'(v)$ is not the popular color$\}$
+\end{itemize}
+\end{block}
+}
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
+\begin{block}<1->{Case 1: $|B'|\ge \frac{\mu|E|}{2}$}
+UNSAT$(G') = \frac{|B'|}{|E'|}\ge\frac{\mu|E|}{2|E'|} = \frac{\mu}{2(d+1)} = \frac{\text{UNSAT}(G)}{2(d+1)}$
+\end{block}
+
+\begin{block}<2->{Case 2: $|S|\ge \frac{\mu|E|}{2}$}
+\begin{itemize}
+\item<3->Consider $v\in V$ and corresponding cloud $G_{d_v}$ in $G'$
+\item<4->$S^v = $ vertices in $G_{d_v}$ that did not get the popular color
+\item<5->$\forall a\in\Sigma$, $\Sigma_a^v=\{v\in\Sigma^v\mid \sigma'(v)=a\}$
+\item<6->$|S_a^v|<\frac{d_v}{2}$
+\item<7->From the expansion property, $|E(S_a^v, \bar{S_a^v})| \ge \varphi_0|S_a^v|$
+\item<8->All edge constraints in $E(S_a^v, \bar{S_a^v})$ are violated!
+\item<9->$|B'|\ge\frac{\sum|E(S_a^v,\bar{S_a^v})|}{2}\ge\frac{\varphi_0|S|}{2}\ge\frac{\mu\varphi_0}{4}|E|\ge\frac{\mu\varphi_0}{4(d+1)}|E'| = $UNSAT$(G)\frac{\varphi_0}{4(d=1)}$
+\end{itemize}
+\end{block}
+{In both cases, since UNSAT$(G')$ is optimal, we have proven that UNSAT$(G) \le k\cdot$UNSAT$(G')$ for some constant $k$}
+}
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
+\begin{block}<1->{Step 1B}
+\begin{itemize}
+\item<2->$G'$ is $(d+1)-regular$
+\item<3->Superimpose $\~{d}$-regular expander on $|V'|$ nodes
+\item<4->The new superimposed graph has the same vertex set as the original constraint graph, but its edges are the union of the 2 graphs ($G'$ and the expander)
+\item<5->Add self-loops to each vertex to get $G''$
+\item<6->Impose dummy constraints on each new edge
+\item<7->$G''$ is still an expander with constant degree $d+2+\~{d}$
+\item<8->
+\end{itemize}
+\end{block}
+}
+
+
 \end{document}

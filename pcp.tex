@@ -1,6 +1,7 @@
 \documentclass{beamer}
 
 % \usepackage{beamerthemesplit} // Activate for custom appearance
+\usepackage{mathtools}
 
 \title{Dinur's Proof of the PCP Theorem}
 \author{Tiernan Garsys, Lucas Pe\~{n}a, and Noam Zilberstein}
@@ -167,14 +168,105 @@ UNSAT$(G') = \frac{|B'|}{|E'|}\ge\frac{\mu|E|}{2|E'|} = \frac{\mu}{2(d+1)} = \fr
 \begin{block}<1->{Step 1B}
 \begin{itemize}
 \item<2->$G'$ is $(d+1)-regular$
-\item<3->Superimpose $\~{d}$-regular expander on $|V'|$ nodes
+\item<3->Superimpose $\tilde{d}$-regular expander on $|V'|$ nodes
 \item<4->The new superimposed graph has the same vertex set as the original constraint graph, but its edges are the union of the 2 graphs ($G'$ and the expander)
 \item<5->Add self-loops to each vertex to get $G''$
 \item<6->Impose dummy constraints on each new edge
-\item<7->$G''$ is still an expander with constant degree $d+2+\~{d}$
+\item<7->$G''$ is still an expander with constant degree $d+2+\tilde{d}$
 \item<8->
 \end{itemize}
 \end{block}
+}
+
+\frame{
+\frametitle{Main Lemma}
+\begin{block}{Main Lemma}
+There exists as constant $\beta >0$ such that if UNSAT$(G)\le\frac1t$ then UNSAT$(G')\ge \beta\sqrt tUNSAT(G)$
+\end{block}
+\begin{block}{Proof:}
+\begin{itemize}
+\item Let $\sigma':V\mapsto \Sigma'$ be the best coloring for $G'$, hence $\alpha'=$UNSAT$(G')$ is the fraction of walk constraints violated by $\sigma'$
+\item Let $\sigma:V\mapsto\Sigma$ be $\sigma(v) = \arg\max_{a\in\Sigma}\Pr[X_{v, t/2}=a]$ where $X_{v,i}$ is the opinion that a vertex has of $v$ that is $i$ random steps away from $v$
+\item If $\sigma(v)=a$ then $\Pr[X_{v, t/2}=a] \ge \frac1\Sigma$
+\item Let $B$ be the set of edges that are violated by $\sigma$ in $G$, then $\frac{|B|}{|E|} \ge$UNSAT$(G) = \alpha$
+\end{itemize}
+\end{block}
+}
+
+\frame{
+\frametitle{Proof of Main Lemma}
+We want to show that bad walks do not overlap very much
+\begin{itemize}
+  \item Let $w$ be a random $t$-walk in $G'$, we now define the following random variable:
+    $$N = \begin{cases} \text{number of bad edges in }I & C_w\text{ is violated by }\sigma'\\ 0 & \text{otherwise}\end{cases}$$
+  \item UNSAT$(G')\ge\Pr[N>0]$, we wish to lower bound $\Pr[N>0]$
+  \item \underline{Claim 1:} $\exists\mu>0$ such that $E[N]\ge\frac{2\mu\sqrt t|B|}{|E|}$
+  \item \underline{Claim 2:} $\exists C>0$ such that $E[N^2] \le \frac{C\sqrt t|B|}{|E|}$
+  \item Chosing $\beta=\frac{4\mu^2}C$ completes the proof:
+\end{itemize}
+\begin{align*}
+  \Pr[N>0] \ge& \frac{E[N]^2}{E[N^2]} \text{ (By the second moments inequality)}\\
+  =&\; \frac{\frac{4\mu^2t|B|^2}{|E|^2}}{\frac{C\sqrt t|B|}{|E|}}
+  = \frac{4\mu^2\sqrt t}C\frac{|B|}{|E|}
+  \ge \beta\text{UNSAT}(G)\sqrt t
+\end{align*}
+}
+
+\frame{
+\frametitle{Proof of Claim 1}
+\begin{itemize}
+\item For a random walk $w$, define 2 random variables:
+\begin{align*}
+Z_i =&\; \begin{cases}
+1, & i^\text{th}\text{ edge of }w\text{ is in }B\\
+0, & \text{otherwise}
+\end{cases}\\
+Y_i =&\; \begin{cases}
+1, & w\text{ is a rejecting }t\text{-walk and }Z_i=1\\
+0, & \text{otherwise}
+\end{cases}
+\end{align*}
+\item Note: $\forall i, Y_i\le Z_i$
+\end{itemize}
+}
+
+\frame{
+\frametitle{Proof of Claim 1}
+\begin{itemize}
+\item Let $N = \sum_{i\in I}Y_i$, then we have:
+\begin{align*}
+E[N] =&\; \sum_{i\in I}E[Y_i]\\
+=&\; \sum_{i\in I}\Pr[Y_i=1]\\
+=&\; \sum_{i\in I}\Pr[Y_i=1\mid Z_i=1]\Pr[Z_i=1]
+\intertext{We know that $\Pr[Z_i=1] =\frac{|B|}{|E|}$ and $\Pr[Y_i=1\mid Z_i=1] \ge\frac{\tau^2}{|\Sigma|^2} = \mu$, so we get:}
+\ge&\; \sum_{i\in I}\mu\frac{|B|}{|E|}\\
+=&\; \frac{2\mu\sqrt t|B|}{|E|}
+\end{align*}
+\end{itemize}
+}
+
+\frame{
+\frametitle{Proof of Claim 2}
+\begin{itemize}
+\item Since $Y_i\le Z_i$, we know that $N\le\sum_{i\in I}Z_i$, therefore:
+\begin{align*}
+  E[N^2] \le&\; E[(\sum_{i\in I}Z_i)^2]\\
+    \le&\; 2\sum_{i\in I}\sum_{j\ge i}E[Z_iZ_j]\\
+    =&\; 2\sum_{i\in I}\Pr[Z_i=1]\sum_{j\ge i}\Pr[Z_j=1\mid Z_i=1]\\
+    =&\; 2\frac{|B|}{|E|}\sum_{i\in I}\sum_{j\ge i}\underbrace{\Pr[Z_j=1\mid Z_i=1]}_{\downarrow}
+    \intertext{Probability that a random walk has its $(j-i+1)^\text{th}$ edge in $B$ given that the first edge in the walk is in $B$}
+\end{align*}
+\end{itemize}
+}
+
+\frame{
+\frametitle{Proof of Claim 2}
+\begin{align*}
+  E[N^2] \le&\; 2\frac{|B|}{|E|}\sum_{i\in I}\sum_{j\ge i}\Pr[Z_j=1\mid Z_i=1]\\
+  \le&\; 2\frac{|B|}{|E|}\sum_{i\in I}\sum_{j\ge i}\left( \frac{|B|}{|E|} + \lambda^{j-i} \right)\\
+  \le&\; C\frac{|B|}{|E|}2\sqrt t\sqrt t\left(\frac1{\sqrt t}\right)\\
+  \le&\; \frac{C\sqrt t|B|}{|E|}
+\end{align*}
 }
 
 

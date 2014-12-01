@@ -73,12 +73,11 @@
 \frame{
 \frametitle{Technical Overview}
 \begin{itemize}
-\item Show that the following are equivalent:
+\item Show that Property 1 implies Property 2
 \begin{itemize}
-\item Property 1: NP $\subseteq$ PCP$_{1-\epsilon}[O(\log n), 2, 4]$
-\item Property 2: For any language $L\in$ NP there is a polynomial time transformation $T$ from instances of $L$ to a constraint graphs on 16 colors $\mathcal G_{16}$ such that if $x\in L$ then $\mathcal G_{16}$ is satisfiable and if $x\notin L$ then at most $(1-\epsilon)|E|$ of the constraints are simultaneously satisfiable
+\item Property 1: For any language $L\in$ NP there is a polynomial time transformation $T$ from instances of $L$ to a constraint graphs on 16 colors $\mathcal G_{16}$ such that if $x\in L$ then $\mathcal G_{16}$ is satisfiable and if $x\notin L$ then at most $(1-\epsilon)|E|$ of the constraints are simultaneously satisfiable
+\item Property 2: NP $\subseteq$ PCP$_{1-\epsilon}[O(\log n), 2, 4]$
 \end{itemize}
-\item It will suffice to prove Property 2
 \item Boost the accuracy of the solution to show that NP$\subseteq$ PCP$_{(1-\epsilon)^c}[O(\log n), 8c, 1]$
 \end{itemize}
 }
@@ -86,7 +85,7 @@
 \frame{
 \frametitle{Regarding Expanders}
 \begin{itemize}
-\item Edge expansion property for a graph $G =\langle V, E\rangle$: $\varphi(G) =\min_{|S|\le\frac n2}\left\{\frac{E(S,\bar s)}{|S|}\right\}$ such that $S\subseteq V$.
+\item Edge expansion property for a graph $G =\langle V, E\rangle$: $\varphi(G) =\min_{|S|\le\frac n2}\left\{\frac{E(S,\bar S)}{|S|}\right\}$ such that $S\subseteq V$.
 \end{itemize}
 }
 
@@ -112,69 +111,8 @@ Assuming that the degree of $G$ is constant, we amplify UNSAT$(G)$ while blowing
 }
 
 \frame{
-\frametitle{The Gap Amplification Lemma}
-\begin{block}{Step 1A}
-Convert $G$ in to a constant degree graph
-\begin{itemize}
-\item Let $G_n$ be a family of expander graphs of degree $d$ and edge expansion at least $\varphi_0$
-\item $G$ is transformed as follows:
-  \begin{itemize}
-    \item Each vertex $v\in V$ (with degree $d_v$) is replaced with expander graph $G_{d_v}$ and each edge incident on $v$ is assigned to a vertex in $G_{d_v}$.
-    \item All edges in $G_{d_v}$ have equality constraints. All other edges retain original constraints
-    \item Now, we have that $|V'| = \sum_{v\in V}d_v = 2|E|$ and $|E'|=frac{(d+1)|V'|}{2}=(d+1)|E|$, so $|G'|$ is $\Theta(|G|)$.
-    \item If UNSAT$(G)=0$, then $UNSAT(G')=0$ by assigning each vertex in $G_{d_v}$ to the color of $v$
-    \item Now, we need to show that if UNSAT$(G)\neq 0$, then UNSAT$(G')$ is not much smaller
-  \end{itemize}
-\end{itemize}
-\end{block}
-}
+\frametitle{Graph Transformation}
 
-\frame{
-\frametitle{The Gap Amplification Lemma}
-\begin{block}{Step 1A}
-If UNSAT$(G)\neq 0$, then UNSAT$(G')$ is not much smaller
-\begin{itemize}
-\item Let $\sigma': V'\mapsto \Sigma$ be the best coloring for $G'$
-\item We now obtain $\sigma : V\mapsto \Sigma$ where $\sigma(v)$ is the most popular color in $\{\sigma'(u)\mid u\in G_{d_v}\}$
-\item Let $\mu = $UNSAT$(G)$
-\item $B$ is the set of edges violated by $\sigma$ and $B'$ is the set of edges violated by $\sigma'$
-\item $S=\{v\in V'\mid \sigma'(v)$ is not the popular color$\}$
-\end{itemize}
-\end{block}
-}
-
-\frame{
-\frametitle{The Gap Amplification Lemma}
-\begin{block}{Case 1: $|B'|\ge \frac{\mu|E|}{2}$}
-UNSAT$(G') = \frac{|B'|}{|E'|}\ge\frac{\mu|E|}{2|E'|} = \frac{\mu}{2(d+1)} = \frac{\text{UNSAT}(G)}{2(d+1)}$
-\end{block}
-
-\begin{block}{Case 2: $|S|\ge \frac{\mu|E|}{2}$}
-\begin{itemize}
-\item Consider $v\in V$ and corresponding cloud $G_{d_v}$ in $G'$
-\item $S^v = $ vertices in $G_{d_v}$ that did not get the popular color
-\item $\forall a\in\Sigma$, $\Sigma_a^v=\{v\in\Sigma^v\mid \sigma'(v)=a\}$
-\item $|S_a^v|<\frac{d_v}{2}$
-\item From the expansion property, $|E(S_a^v, \bar{S_a^v})| \ge \varphi_0|S_a^v|$
-\item All edge constraints in $E(S_a^v, \bar{S_a^v})$ are violated!
-\item $|B'|\ge\frac{\sum|E(S_a^v,\bar{S_a^v})|}{2}\ge\frac{\varphi_0|S|}{2}\ge\frac{\mu\varphi_0}{4}|E|\ge\frac{\mu\varphi_0}{4(d+1)}|E'| = $UNSAT$(G)\frac{\varphi_0}{4(d=1)}$
-\end{itemize}
-\end{block}
-{In both cases, since UNSAT$(G')$ is optimal, we have proven that UNSAT$(G) \le k\cdot$UNSAT$(G')$ for some constant $k$}
-}
-
-\frame{
-\frametitle{The Gap Amplification Lemma}
-\begin{block}{Step 1B}
-\begin{itemize}
-\item$G'$ is $(d+1)-regular$
-\item Superimpose $\tilde{d}$-regular expander on $|V'|$ nodes
-\item The new superimposed graph has the same vertex set as the original constraint graph, but its edges are the union of the 2 graphs ($G'$ and the expander)
-\item Add self-loops to each vertex to get $G''$
-\item Impose dummy constraints on each new edge
-\item $G''$ is still an expander with constant degree $d+2+\tilde{d}$
-\end{itemize}
-\end{block}
 }
 
 \frame{
@@ -268,5 +206,71 @@ E[N] =&\; \sum_{i\in I}E[Y_i]\\
 \end{align*}
 }
 
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
+\begin{block}{Step 1A}
+Convert $G$ in to a constant degree graph
+\begin{itemize}
+\item Let $G_n$ be a family of expander graphs of degree $d$ and edge expansion at least $\varphi_0$
+\item $G$ is transformed as follows:
+  \begin{itemize}
+    \item Each vertex $v\in V$ (with degree $d_v$) is replaced with expander graph $G_{d_v}$ and each edge incident on $v$ is assigned to a vertex in $G_{d_v}$.
+    \item All edges in $G_{d_v}$ have equality constraints. All other edges retain original constraints
+    \item Now, we have that $|V'| = \sum_{v\in V}d_v = 2|E|$ and $|E'|=frac{(d+1)|V'|}{2}=(d+1)|E|$, so $|G'|$ is $\Theta(|G|)$.
+    \item If UNSAT$(G)=0$, then $UNSAT(G')=0$ by assigning each vertex in $G_{d_v}$ to the color of $v$
+    \item Now, we need to show that if UNSAT$(G)\neq 0$, then UNSAT$(G')$ is not much smaller
+  \end{itemize}
+\end{itemize}
+\end{block}
+}
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
+\begin{block}{Step 1A}
+If UNSAT$(G)\neq 0$, then UNSAT$(G')$ is not much smaller
+\begin{itemize}
+\item Let $\sigma': V'\mapsto \Sigma$ be the best coloring for $G'$
+\item We now obtain $\sigma : V\mapsto \Sigma$ where $\sigma(v)$ is the most popular color in $\{\sigma'(u)\mid u\in G_{d_v}\}$
+\item Let $\mu = $UNSAT$(G)$
+\item $B$ is the set of edges violated by $\sigma$ and $B'$ is the set of edges violated by $\sigma'$
+\item $S=\{v\in V'\mid \sigma'(v)$ is not the popular color$\}$
+\end{itemize}
+\end{block}
+}
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
+\begin{block}{Case 1: $|B'|\ge \frac{\mu|E|}{2}$}
+UNSAT$(G') = \frac{|B'|}{|E'|}\ge\frac{\mu|E|}{2|E'|} = \frac{\mu}{2(d+1)} = \frac{\text{UNSAT}(G)}{2(d+1)}$
+\end{block}
+
+\begin{block}{Case 2: $|S|\ge \frac{\mu|E|}{2}$}
+\begin{itemize}
+\item Consider $v\in V$ and corresponding cloud $G_{d_v}$ in $G'$
+\item $S^v = $ vertices in $G_{d_v}$ that did not get the popular color
+\item $\forall a\in\Sigma$, $\Sigma_a^v=\{v\in\Sigma^v\mid \sigma'(v)=a\}$
+\item $|S_a^v|<\frac{d_v}{2}$
+\item From the expansion property, $|E(S_a^v, \bar{S_a^v})| \ge \varphi_0|S_a^v|$
+\item All edge constraints in $E(S_a^v, \bar{S_a^v})$ are violated!
+\item $|B'|\ge\frac{\sum|E(S_a^v,\bar{S_a^v})|}{2}\ge\frac{\varphi_0|S|}{2}\ge\frac{\mu\varphi_0}{4}|E|\ge\frac{\mu\varphi_0}{4(d+1)}|E'| = $UNSAT$(G)\frac{\varphi_0}{4(d=1)}$
+\end{itemize}
+\end{block}
+{In both cases, since UNSAT$(G')$ is optimal, we have proven that UNSAT$(G) \le k\cdot$UNSAT$(G')$ for some constant $k$}
+}
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
+\begin{block}{Step 1B}
+\begin{itemize}
+\item$G'$ is $(d+1)-regular$
+\item Superimpose $\tilde{d}$-regular expander on $|V'|$ nodes
+\item The new superimposed graph has the same vertex set as the original constraint graph, but its edges are the union of the 2 graphs ($G'$ and the expander)
+\item Add self-loops to each vertex to get $G''$
+\item Impose dummy constraints on each new edge
+\item $G''$ is still an expander with constant degree $d+2+\tilde{d}$
+\end{itemize}
+\end{block}
+}
 
 \end{document}

@@ -112,7 +112,13 @@ Assuming that the degree of $G$ is constant, we amplify UNSAT$(G)$ while blowing
 
 \frame{
 \frametitle{Graph Transformation}
-
+The power graph $G^t = \langle\langle V',E'\rangle, \Sigma', \mathcal C'\rangle$ is constructed as follows:
+\begin{itemize}
+  \item $V' = V$
+  \item $(u,v)\in E'$ iff there exists a walk of length $t$ between $u$ and $v$ in $G$
+  \item $\Sigma' = \Sigma^{\Delta^{\lceil t/2\rceil}}$ the color $\sigma\in\Sigma'$ encodes the color of $v$ and $v$'s ``opinions''
+  \item $\mathcal C' = \{c_w : \Sigma' \mapsto \{0,1\} \mid w\in E'\}$ where $c_w$ ensures that the endpoints of the walk have consistent opinions and that all edge constraints along the walk are satisfied
+\end{itemize}
 }
 
 \frame{

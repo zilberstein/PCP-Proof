@@ -100,11 +100,21 @@ There exists a constant $0<\alpha<1$, an alphabet $\Sigma$, and a polynomial tim
 \item UNSAT$(G') \ge 2\min\{$UNSAT$(G), \alpha\}$
 \end{itemize}
 \end{block}
+}
 
 \frame{
 \frametitle{GAL Implies PCP as a Reduction}
+Apply the GAL $\log n$ times
 \begin{itemize}
-\item 
+\item $|G|$ is blown up by a constant on each application, so after $\log n$ applications, blowup is polynomial
+\item Directly from the GAL, we know that if UNSAT$(G)=0$, then UNSAT$(G')=0$
+\item By the GAL, UNSAT$(G')\ge 2\min\{$UNSAT$(G),\alpha\}$ therefore:
+\begin{align*}
+  \text{UNSAT}(G') \ge&\; 2\min\{\text{UNSAT}(G), \alpha\}\\
+  \text{UNSAT}(G^2) \ge&\; 2\min\{2\min\{\text{UNSAT}(G),\alpha\},\alpha\}\\
+  \vdots&\\
+  \text{UNSAT}(G^{\log n}) \ge&\; \min\{2^{\log n}\text{UNSAT}(G), \alpha\}
+\end{align*}
 \end{itemize}
 }
 

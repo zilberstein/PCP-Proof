@@ -29,16 +29,16 @@
   \frametitle{The PCP Theorem}
 
   \begin{itemize}
-  \item<1-> The class NP is equivalent to the set of languages that can be decided by a probabilistically checkable proof using $O(\log n)$ random bits and $O(1)$ query bits.
-  \item<2-> Let PCP$_{\epsilon}[r, q, a]$ be the class of languages with a PCP using $r$ random bits and $q$ queries that each return $a$-bit responses.  If $x\in L$, then the verifier will always accept, if $x\not\in L$ then the verifier will accept with probability at most $\epsilon$.   
-  \item<3-> Dinur presents a new proof that NP = PCP$_\frac12[c\log n, q, 1]$ where $c$ and $q$ are constants. 
+  \item The class NP is equivalent to the set of languages that can be decided by a probabilistically checkable proof using $O(\log n)$ random bits and $O(1)$ query bits.
+  \item Let PCP$_{\epsilon}[r, q, a]$ be the class of languages with a PCP using $r$ random bits and $q$ queries that each return $a$-bit responses.  If $x\in L$, then the verifier will always accept, if $x\not\in L$ then the verifier will accept with probability at most $\epsilon$.   
+  \item Dinur presents a new proof that NP = PCP$_\frac12[c\log n, q, 1]$ where $c$ and $q$ are constants. 
   \end{itemize}
 }
 
 \frame{
   \frametitle{Constraint Graph Definition}
   \begin{itemize}
-  \item<1->Let $G=\langle\langle V, E\rangle, \Sigma, \mathcal{C}\rangle$ be a constraint graph (CG) where:
+  \item Let $G=\langle\langle V, E\rangle, \Sigma, \mathcal{C}\rangle$ be a constraint graph (CG) where:
   \begin{itemize}
     \item$\langle V, E\rangle$ is a directed graph
     \item $\Sigma$ is a constant size set of colors
@@ -101,11 +101,20 @@ There exists a constant $0<\alpha<1$, an alphabet $\Sigma$, and a polynomial tim
 \end{itemize}
 \end{block}
 
+\frame{
+\frametitle{GAL Implies PCP as a Reduction}
+\begin{itemize}
+\item 
+\end{itemize}
+}
+
+\frame{
+\frametitle{The Gap Amplification Lemma}
 \begin{block}{Step 1: Preprocessing}
 Convert $G$ to a constant degree expander. Worsens UNSAT$(G)$ by a constant factor, blows up $|G|$ by a constant factor
 \end{block}
 
-\begin{block}{Step 2: Power Step}
+\begin{block}{Step 2: \textbf{Power Step}}
 Assuming that the degree of $G$ is constant, we amplify UNSAT$(G)$ while blowing up $|G|$ and $|\Sigma|$ by a constant factor.
 \end{block}
 }
@@ -124,25 +133,29 @@ The power graph $G^t = \langle\langle V',E'\rangle, \Sigma', \mathcal C'\rangle$
 \frame{
 \frametitle{Main Lemma}
 \begin{block}{Main Lemma}
-There exists as constant $\beta >0$ such that if UNSAT$(G)\le\frac1t$ then UNSAT$(G')\ge \beta\sqrt tUNSAT(G)$
+There exists as constant $\beta >0$ such that if UNSAT$(G)\le\frac1t$ then UNSAT$(G^t)\ge \beta\sqrt t$UNSAT$(G)$
 \end{block}
-\begin{block}{Proof:}
+Main Lemma implies Gap Amplification Lemma
+
+}
+
+\frame{
+\frametitle{Proof of Main Lemma}
 \begin{itemize}
-\item Let $\sigma':V\mapsto \Sigma'$ be the best coloring for $G'$, hence $\alpha'=$UNSAT$(G')$ is the fraction of walk constraints violated by $\sigma'$
+\item Let $\sigma':V\mapsto \Sigma'$ be the best coloring for $G'$, hence $\alpha'=$UNSAT$(G^t)$ is the fraction of walk constraints violated by $\sigma'$
 \item Let $\sigma:V\mapsto\Sigma$ be $\sigma(v) = \arg\max_{a\in\Sigma}\Pr[X_{v, t/2}=a]$ where $X_{v,i}$ is the opinion that a vertex has of $v$ that is $i$ random steps away from $v$
 \item If $\sigma(v)=a$ then $\Pr[X_{v, t/2}=a] \ge \frac1\Sigma$
 \item Let $B$ be the set of edges that are violated by $\sigma$ in $G$, then $\frac{|B|}{|E|} \ge$UNSAT$(G) = \alpha$
 \end{itemize}
-\end{block}
 }
 
 \frame{
 \frametitle{Proof of Main Lemma}
 We want to show that bad walks do not overlap very much
 \begin{itemize}
-  \item Let $w$ be a random $t$-walk in $G'$, we now define the following random variable:
+  \item Let $w$ be a random $t$-walk in $G^t$, we now define the following random variable:
     $$N = \begin{cases} \text{number of bad edges in }I & C_w\text{ is violated by }\sigma'\\ 0 & \text{otherwise}\end{cases}$$
-  \item UNSAT$(G')\ge\Pr[N>0]$, we wish to lower bound $\Pr[N>0]$
+  \item UNSAT$(G^t)\ge\Pr[N>0]$, we wish to lower bound $\Pr[N>0]$
   \item \underline{Claim 1:} $\exists\mu>0$ such that $E[N]\ge\frac{2\mu\sqrt t|B|}{|E|}$
   \item \underline{Claim 2:} $\exists C>0$ such that $E[N^2] \le \frac{C\sqrt t|B|}{|E|}$
   \item Chosing $\beta=\frac{4\mu^2}C$ completes the proof:

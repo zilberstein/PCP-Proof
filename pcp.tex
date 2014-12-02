@@ -16,14 +16,15 @@
 
 \section{Problem Statement}
 \subsection{The PCP Theorem}
-\subsection{}
 \section{Main Result}
-\subsection{Previous Approaches}
-\subsection{Dinur's Approach}
+\subsection{Dinur's Method}
+\subsection{Significance of Result}
 \section{Technical Overview of the Proof}
 \subsection{Definitions}
-\subsection{The PCP Theorem}
+\subsection{PCP Theorem as a Reduction}
 \section{Proof of Lemmas}
+\subsection{Power Step of Gap Amplification Lemma}
+\subsection{Pre-processing of Gap Amplification Lemma}
 \frame
 {
   \frametitle{The PCP Theorem}
@@ -31,10 +32,18 @@
   \begin{itemize}
   \item The class NP is equivalent to the set of languages that can be decided by a probabilistically checkable proof using $O(\log n)$ random bits and $O(1)$ query bits.
   \item Let PCP$_{\epsilon}[r, q, a]$ be the class of languages with a PCP using $r$ random bits and $q$ queries that each return $a$-bit responses.  If $x\in L$, then the verifier will always accept, if $x\not\in L$ then the verifier will accept with probability at most $\epsilon$.   
-  \item Dinur presents a new proof that NP = PCP$_\frac12[c\log n, q, 1]$ where $c$ and $q$ are constants. 
   \end{itemize}
 }
 
+\frame
+{
+  \frametitle{Dinur's Method}
+  \begin{itemize}
+  \item Dinur presents a new proof that NP = PCP$_\frac12[c\log n, q, 1]$ where $c$ and $q$ are 
+    constants. 
+    \item Proof connects PCP to NP via constraint graph problem.
+  \end{itemize}
+}
 
 \frame
 {

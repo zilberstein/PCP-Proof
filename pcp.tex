@@ -96,6 +96,7 @@ Note this implies Property 1 from the previous slide, so it suffices to show tha
 }
 
 \frame{
+<<<<<<< HEAD
 \frametitle{Proof:}
 Fix an input $G \in CG$. The proof oracle is $\Pi : V \mapsto \{0,1\}^4$. Assume WLOG $|E| = 2^k$ for some $k$. The verifier tosses it's coins and picks a random edge $(u, v) \in E$ (with edge constraint $c_{(u, v)}$). The verifier then reads $\Pi(u)$ and $\Pi(v)$ and accepts if and only if $c_{(u, v)}(\Pi(u), \Pi(v)) = 1$.
 }
@@ -131,8 +132,9 @@ Apply the GAL $\log n$ times
   \text{UNSAT}(G') \ge&\; 2\min\{\text{UNSAT}(G), \alpha\}\\
   \text{UNSAT}(G^2) \ge&\; 2\min\{2\min\{\text{UNSAT}(G),\alpha\},\alpha\}\\
   \vdots&\\
-  \text{UNSAT}(G^{\log n}) \ge&\; \min\{2^{\log n}\text{UNSAT}(G), \alpha\}
+  \text{UNSAT}(G^{\log n}) \ge&\; \min\{2^{\log n}\text{UNSAT}(G), 2\alpha\} = 2\alpha
 \end{align*}
+\item If UNSAT$(G) > 0$ then UNSAT$(G) \ge \frac1n$, therefore $n\cdot$UNSAT$(G) \ge 1$
 \end{itemize}
 }
 
@@ -253,6 +255,12 @@ E[N] =&\; \sum_{i\in I}E[Y_i]\\
 \end{align*}
 }
 
+\frame{
+\frametitle{Regarding Expanders}
+\begin{itemize}
+\item Edge expansion property for a graph $G =\langle V, E\rangle$: $\varphi(G) =\min_{|S|\le\frac n2}\left\{\frac{E(S,\bar S)}{|S|}\right\}$ such that $S\subseteq V$.
+\end{itemize}
+}
 
 \frame{
 \frametitle{The Gap Amplification Lemma}

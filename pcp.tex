@@ -306,7 +306,7 @@ Convert $G$ in to a constant degree graph
   \begin{itemize}
     \item Each vertex $v\in V$ (with degree $d_v$) is replaced with expander graph $G_{d_v}$ and each edge incident on $v$ is assigned to a vertex in $G_{d_v}$.
     \item All edges in $G_{d_v}$ have equality constraints. All other edges retain original constraints
-    \item Now, we have that $|V'| = \sum_{v\in V}d_v = 2|E|$ and $|E'|=frac{(d+1)|V'|}{2}=(d+1)|E|$, so $|G'|$ is $\Theta(|G|)$.
+    \item Now, we have that $|V'| = \sum_{v\in V}d_v = 2|E|$ and $|E'|=\frac{(d+1)|V'|}{2}=(d+1)|E|$, so $|G'|$ is $\Theta(|G|)$.
     \item If UNSAT$(G)=0$, then $UNSAT(G')=0$ by assigning each vertex in $G_{d_v}$ to the color of $v$
     \item Now, we need to show that if UNSAT$(G)\neq 0$, then UNSAT$(G')$ is not much smaller
   \end{itemize}

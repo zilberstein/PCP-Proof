@@ -83,6 +83,16 @@
 }
 
 \frame{
+\frametitle{Proof that Property 1 implies Property 2}
+\begin{itemize}
+\item Fix an input $x$, and consider the consider the constraint graph $T(x)$, call it $G$. WLOG assume $|E| = 2^k$, for some $k$
+\item Proof oracle is the coloring $\pi : V \mapsto \{0, 1\}^4$
+\item Verifier tosses coins and picks a random edge $e = (u, v)$ of $G$
+\item Verifier reads $\pi(u)$ and $\pi(v)$, and accepts iff $c_e(\pi(u), \pi(v)) = 1$
+\end{itemize}
+}
+
+\frame{
 \frametitle{PCP Theorem as a Reduction}
 \begin{block}{Theorem: PCP Theorem as a Reduction}
 There exists a constant $\alpha$ and a polynomial time reduction from CG to the $\alpha$-approximation version of CG that maps the instance $G = \langle \langle V, E \rangle, \Sigma, \mathcal{C}\rangle$ to the instance $G' = \langle \langle V', E' \rangle, \Sigma', \mathcal{C}'\rangle$ such \; that
@@ -91,14 +101,8 @@ There exists a constant $\alpha$ and a polynomial time reduction from CG to the 
 \item UNSAT$(G) = 0 \Rightarrow$ UNSAT$(G') = 0$
 \item UNSAT$(G) \geq \frac1n \Rightarrow$ UNSAT$(G') \geq \alpha$
 \end{itemize}
-Note this implies Property 1 from the previous slide, so it suffices to show that this implies NP $\subseteq$ PCP$_{1-\epsilon}[O(\log n), 2, 4]$
+Note this implies Property 1 from before
 \end{block}
-}
-
-\frame{
-<<<<<<< HEAD
-\frametitle{Proof:}
-Fix an input $G \in CG$. The proof oracle is $\Pi : V \mapsto \{0,1\}^4$. Assume WLOG $|E| = 2^k$ for some $k$. The verifier tosses it's coins and picks a random edge $(u, v) \in E$ (with edge constraint $c_{(u, v)}$). The verifier then reads $\Pi(u)$ and $\Pi(v)$ and accepts if and only if $c_{(u, v)}(\Pi(u), \Pi(v)) = 1$.
 }
 
 \frame{

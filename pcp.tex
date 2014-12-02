@@ -83,6 +83,18 @@
 }
 
 \frame{
+\frametitle{PCP Theorem as a Reduction}
+\begin{block}{Theorem: PCP Theorem as a Reduction}
+There exists a constant $\alpha$ and a polynomial time reduction from CG to the $\alpha$-approximation version of CG that maps the instance $G = \langle \langle V, E \rangle, \Sigma, \mathcal{C}\rangle$ to the instance $G' = \langle \langle V', E' \rangle, \Sigma', \mathcal{C}'\rangle$ such that
+\begin{itemize}
+\item $|G'| = $poly$(|G|)$, where $|G| = |V| + |E|$
+\item UNSAT$(G) = 0 \Rightarrow$ UNSAT$(G') = 0$
+\item UNSAT$(G) \geq \frac1n \Rightarrow$ UNSAT$(G') \geq \alpha$
+\end{itemize}
+\end{block}
+}
+
+\frame{
 \frametitle{Regarding Expanders}
 \begin{itemize}
 \item Edge expansion property for a graph $G =\langle V, E\rangle$: $\varphi(G) =\min_{|S|\le\frac n2}\left\{\frac{E(S,\bar S)}{|S|}\right\}$ such that $S\subseteq V$.

@@ -100,6 +100,7 @@
 \item Proof oracle is the coloring $\pi : V \mapsto \{0, 1\}^4$
 \item Verifier tosses coins and picks a random edge $e = (u, v)$ of $G$
 \item Verifier reads $\pi(u)$ and $\pi(v)$, and accepts iff $c_e(\pi(u), \pi(v)) = 1$
+\item If $G$ is $\epsilon$-far from satisfiable, then there is probability $1-\epsilon$ that the verifier did \textit{not} choose an unsatisfied edge
 \end{itemize}
 }
 
@@ -347,6 +348,10 @@ UNSAT$(G') = \frac{|B'|}{|E'|}\ge\frac{\mu|E|}{2|E'|} = \frac{\mu}{2(d+1)} = \fr
 \item $G''$ is still an expander with constant degree $d+2+\tilde{d}$
 \end{itemize}
 \end{block}
+}
+
+\frame{
+\Huge{$$\mathcal{QED}.$$}
 }
 
 \end{document}

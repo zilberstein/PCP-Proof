@@ -125,8 +125,9 @@ Apply the GAL $\log n$ times
   \text{UNSAT}(G') \ge&\; 2\min\{\text{UNSAT}(G), \alpha\}\\
   \text{UNSAT}(G^2) \ge&\; 2\min\{2\min\{\text{UNSAT}(G),\alpha\},\alpha\}\\
   \vdots&\\
-  \text{UNSAT}(G^{\log n}) \ge&\; \min\{2^{\log n}\text{UNSAT}(G), \alpha\}
+  \text{UNSAT}(G^{\log n}) \ge&\; \min\{2^{\log n}\text{UNSAT}(G), 2\alpha\} = 2\alpha
 \end{align*}
+\item If UNSAT$(G) > 0$ then UNSAT$(G) \ge \frac1n$, therefore $n\cdot$UNSAT$(G) \ge 1$
 \end{itemize}
 }
 

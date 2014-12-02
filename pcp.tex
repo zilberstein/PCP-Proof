@@ -182,7 +182,7 @@ The power graph $G^t = \langle\langle V',E'\rangle, \Sigma', \mathcal C'\rangle$
 \frame{
 \frametitle{Main Lemma}
 \begin{block}{Main Lemma}
-There exists as constant $\beta >0$ such that if UNSAT$(G)\le\frac1t$ then UNSAT$(G^t)\ge \beta\sqrt t$UNSAT$(G)$
+There exists a constant $\beta >0$ such that if UNSAT$(G)\le\frac1{\sqrt t}$ then UNSAT$(G^t)\ge \beta\sqrt t$UNSAT$(G)$
 \end{block}
 \begin{itemize}
 \item Main Lemma implies Gap Amplification Lemma
@@ -192,10 +192,38 @@ There exists as constant $\beta >0$ such that if UNSAT$(G)\le\frac1t$ then UNSAT
 \frame{
 \frametitle{Proof of Main Lemma}
 \begin{itemize}
-\item Let $\sigma':V\mapsto \Sigma'$ be the best coloring for $G'$, hence $\alpha'=$UNSAT$(G^t)$ is the fraction of walk constraints violated by $\sigma'$
+\item Let $\sigma':V\mapsto \Sigma'$ be the best coloring for $G^t$, hence $\alpha'=$UNSAT$(G^t)$ is the fraction of walk constraints violated by $\sigma'$
 \item Let $\sigma:V\mapsto\Sigma$ be $\sigma(v) = \arg\max_{a\in\Sigma}\Pr[X_{v, t/2}=a]$ where $X_{v,i}$ is the opinion that a vertex has of $v$ that is $i$ random steps away from $v$
 \item If $\sigma(v)=a$ then $\Pr[X_{v, t/2}=a] \ge \frac1{|\Sigma|}$
 \item Let $B$ be the set of edges that are violated by $\sigma$ in $G$, then $\frac{|B|}{|E|} \ge$UNSAT$(G) = \alpha$
+\end{itemize}
+}
+
+\frame{
+\frametitle{Proof of Main Lemma}
+\begin{itemize}
+\item Consider $e=(u,v)\in B$
+\item Let $I = \left[\frac t2 -\sqrt t, \frac t2 + \sqrt t\right]$
+\item Consider a random $t$-walk $w=v_0,v_1,\ldots,v_t\in G^t$ conditioned on the fact that $e$ is the $i^\text{th}$ edge on the walk
+\item Let $\sigma(u)=a$, $\sigma(v)=b$, and $c_e(a,b) = 0$
+\item If opinion of $u=v_{i-1}$ held by $\sigma'(v_0)$ is $a$ and the opinion of $v =v_i$ held by $\sigma'(v_t) = b$ then $c_w(v_0, v_t)= 0$
+\item $\Pr_w[c_w(\sigma(u),\sigma(v))=0] \ge\Pr[X_{u,i-1}=a]\Pr[X_{v,t-i}=b]$
+\item If $e$ is halfway between $v_0$ and $v_t$, then the above is $\frac1{|\Sigma|^2}$
+\end{itemize}
+}
+
+\frame{
+\frametitle{Proof of Main Lemma}
+More generally:
+\begin{itemize}
+\item We know that $|i-\frac t2| \le \sqrt t$
+\item There exists $\tau>0$ such that if $|\ell-\frac t2| \le \sqrt t$ then:
+\begin{align*}
+ \Pr[X_{u,\ell}=a] \ge&\; \tau\Pr[X_{u,t/2}=a] \\\\
+ \Pr_w[c_w(\sigma(u),\sigma(v))=0] \ge&\; \tau^2\cdot \Pr[X_{u,t/2}=a]\Pr[X_{v,t/2}=b]\\
+ =&\; \left(\frac\tau{|\Sigma|}\right)^2\\
+ =& \mu
+\end{align*}
 \end{itemize}
 }
 

@@ -106,13 +106,6 @@ Note this implies Property 1 from before
 }
 
 \frame{
-\frametitle{Regarding Expanders}
-\begin{itemize}
-\item Edge expansion property for a graph $G =\langle V, E\rangle$: $\varphi(G) =\min_{|S|\le\frac n2}\left\{\frac{E(S,\bar S)}{|S|}\right\}$ such that $S\subseteq V$.
-\end{itemize}
-}
-
-\frame{
 \frametitle{The Gap Amplification Lemma}
 \begin{block}{Lemma: Gap Amplification}
 There exists a constant $0<\alpha<1$, an alphabet $\Sigma$, and a polynomial time reduction mapping the CG $G=\langle\langle V, E\rangle, \Sigma, \mathcal{C}\rangle$ to $G'=\langle\langle V', E'\rangle, \Sigma', \mathcal{C}'\rangle$ such that:
@@ -169,8 +162,9 @@ The power graph $G^t = \langle\langle V',E'\rangle, \Sigma', \mathcal C'\rangle$
 \begin{block}{Main Lemma}
 There exists as constant $\beta >0$ such that if UNSAT$(G)\le\frac1t$ then UNSAT$(G^t)\ge \beta\sqrt t$UNSAT$(G)$
 \end{block}
-Main Lemma implies Gap Amplification Lemma
-
+\begin{itemize}
+\item Main Lemma implies Gap Amplification Lemma
+\end{itemize}
 }
 
 \frame{
@@ -178,7 +172,7 @@ Main Lemma implies Gap Amplification Lemma
 \begin{itemize}
 \item Let $\sigma':V\mapsto \Sigma'$ be the best coloring for $G'$, hence $\alpha'=$UNSAT$(G^t)$ is the fraction of walk constraints violated by $\sigma'$
 \item Let $\sigma:V\mapsto\Sigma$ be $\sigma(v) = \arg\max_{a\in\Sigma}\Pr[X_{v, t/2}=a]$ where $X_{v,i}$ is the opinion that a vertex has of $v$ that is $i$ random steps away from $v$
-\item If $\sigma(v)=a$ then $\Pr[X_{v, t/2}=a] \ge \frac1\Sigma$
+\item If $\sigma(v)=a$ then $\Pr[X_{v, t/2}=a] \ge \frac1{|\Sigma|}$
 \item Let $B$ be the set of edges that are violated by $\sigma$ in $G$, then $\frac{|B|}{|E|} \ge$UNSAT$(G) = \alpha$
 \end{itemize}
 }

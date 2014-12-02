@@ -84,13 +84,14 @@
 
 \frame{
 \frametitle{PCP Theorem as a Reduction}
-\begin{Theorem: PCP Theorem as a Reduction}
+\begin{block}{Theorem: PCP Theorem as a Reduction}
 There exists a constant $\alpha$ and a polynomial time reduction from CG to the $\alpha$-approximation version of CG that maps the instance $G = \langle \langle V, E \rangle, \Sigma, \mathcal{C}\rangle$ to the instance $G' = \langle \langle V', E' \rangle, \Sigma', \mathcal{C}'\rangle$ such that
 \begin{itemize}
-$|G'| = $poly$(|G|)$, where $|G| = |V| + |E|$
-UNSAT$(G) = 0 \Rightarrow$ UNSAT$(G') = 0$
-UNSAT$(G) \geq \frac1n \Rightarrow$ UNSAT$(G') \geq \alpha$
+\item $|G'| = $poly$(|G|)$, where $|G| = |V| + |E|$
+\item UNSAT$(G) = 0 \Rightarrow$ UNSAT$(G') = 0$
+\item UNSAT$(G) \geq \frac1n \Rightarrow$ UNSAT$(G') \geq \alpha$
 \end{itemize}
+\end{block}
 }
 
 \frame{
@@ -111,6 +112,7 @@ There exists a constant $0<\alpha<1$, an alphabet $\Sigma$, and a polynomial tim
 \item UNSAT$(G') \ge 2\min\{$UNSAT$(G), \alpha\}$
 \end{itemize}
 \end{block}
+}
 
 \frame{
 \frametitle{GAL Implies PCP as a Reduction}
